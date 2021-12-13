@@ -1,15 +1,39 @@
-// const greeting = 'Hello World';
-// console.log(greeting);
+import { http } from './http';
+import { ui } from './ui';
 
-// const getData = async (url) => {
-//   const response = await fetch(url);
-//   const result = await response.json();
-//   console.log(result);
-// };
+// Get posts on DOM load
+document.addEventListener('DOMContentLoaded', getPosts);
 
-// getData('https://jsonplaceholder.typicode.com/posts');
+// Listen for add post
+document.querySelector('.post-submit').addEventListener('click', submitPost);
 
-// Common JS Module Syntax
-// const person = require('./mymodule1');
-// ES2015
+// Get post
+function getPosts(){
+  http.get('http://localhost:3000/posts')
+  .then(data => ui.showPosts(data))
+  .catch(err => console.log(err));
+}
+
+// Submit post
+
+function submitPost() {
+  const title = document.querySelector('#title').value;
+  const body = document.querySelector('#body').value;
+
+  const data = {
+    title,
+    body
+  }
+// Create post
+http.post('http://localhost:3000/posts', data)
+.then(data => {
+  ui.showAlert('Post added', 'alert alert-success');
+  ui.clearFields();
+  getPosts();
+
+})
+.catch(err => console.log(err));
+
+}
+
 
