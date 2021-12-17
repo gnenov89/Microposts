@@ -1,6 +1,7 @@
 import { http } from './http';
 import { ui } from './ui';
 
+
 // Get posts on DOM load
 document.addEventListener('DOMContentLoaded', getPosts);
 
@@ -113,4 +114,9 @@ function cancelEdit(e) {
     ui.changeFormState('add');
   }
 }
+
+
+
+
+// THIS IS WEHRERE 2.0 STARTS
 
